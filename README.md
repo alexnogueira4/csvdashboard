@@ -11,7 +11,7 @@
 
    ```
    git clone https://github.com/alexnogueira4/csvdashboard.git
-   cd tmdbapp
+   cd csvdashboard
    ```
 
 2. **Install dependencies:**
