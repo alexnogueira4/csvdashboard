@@ -1,88 +1,70 @@
-// This file contains type definitions for your data.
-// It describes the shape of the data, and what data type each property should accept.
-// For simplicity of teaching, we're manually defining these types.
-// However, these types are generated automatically if you're using an ORM such as Prisma.
-export type User = {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
-};
+import { SortDescriptor } from '@nextui-org/react'
 
-export type Customer = {
-  id: string;
-  name: string;
-  email: string;
-  image_url: string;
-};
+export type Vehicle = {
+  license_number?: string
+  license_state?: string
+  unit_type?: string
+  unit: string
+  vehicle_id_number?: string
+}
 
-export type Invoice = {
-  id: string;
-  customer_id: string;
-  amount: number;
-  date: string;
-  // In TypeScript, this is called a string union type.
-  // It means that the "status" property can only be one of the two strings: 'pending' or 'paid'.
-  status: 'pending' | 'paid';
-};
+export type Violation = {
+  basic: string
+  code: string
+  convicted_of_dif_charge: string
+  description: string
+  oos: string
+  time_severity_weight: string
+  unit: string
+}
 
-export type Revenue = {
-  month: string;
-  revenue: number;
-};
+export type Inspection = {
+  _id: string
+  hm_inspection: string
+  inspection_date: string
+  level: string
+  placarable_hm_veh_insp: string
+  report_number: string
+  report_state: string
+  time_weight: string
+  vehicles?: Vehicle[]
+  violations?: Violation[]
+}
 
-export type LatestInvoice = {
-  id: string;
-  name: string;
-  image_url: string;
-  email: string;
-  amount: string;
-};
+export type SearchOptions = {
+  limit?: number
+  page?: number
+  search?: string
+  sortBy?: string
+  sortOrder?: 'ascending' | 'descending'
+}
 
-// The database returns a number for amount, but we later format it to a string with the formatCurrency function
-export type LatestInvoiceRaw = Omit<LatestInvoice, 'amount'> & {
-  amount: number;
-};
+export type TableColumns = {
+  name: string
+  uid: string
+  sortable?: boolean
+}
 
-export type InvoicesTable = {
-  id: string;
-  customer_id: string;
-  name: string;
-  email: string;
-  image_url: string;
-  date: string;
-  amount: number;
-  status: 'pending' | 'paid';
-};
+export type TableData = any
 
-export type CustomersTableType = {
-  id: string;
-  name: string;
-  email: string;
-  image_url: string;
-  total_invoices: number;
-  total_pending: number;
-  total_paid: number;
-};
+export type TableProps = {
+  rowKey: keyof TableData
+  data: TableData[]
+  headerColumns: TableColumns[]
+  sortDescriptor?: SortDescriptor
+  bottomContent?: React.ReactElement
+  topContent?: React.ReactElement
+  isHoverable?: boolean
+  onSortChange?: (value: SortDescriptor) => void
+  onRowClick?: (value: TableData) => any
+  renderCell?: (value: any, columnKey: React.Key) => any
+}
 
-export type FormattedCustomersTable = {
-  id: string;
-  name: string;
-  email: string;
-  image_url: string;
-  total_invoices: number;
-  total_pending: string;
-  total_paid: string;
-};
+export type InspectionsApiResult = {
+  message?: string
+  error?: unknown | string
+  results?: Inspection[]
+  totalCount?: number
+}
 
-export type CustomerField = {
-  id: string;
-  name: string;
-};
-
-export type InvoiceForm = {
-  id: string;
-  customer_id: string;
-  amount: number;
-  status: 'pending' | 'paid';
-};
+export type FlatInspection = Omit<Inspection, 'vehicles' | 'violations'>
